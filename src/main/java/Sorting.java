@@ -32,7 +32,24 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] bubbleSort(final int[] array) {
-        return null;
+        int[] returnArray = new int[array.length];
+        System.arraycopy(array, 0, returnArray, 0, array.length);
+
+        for (int j = 0; j < returnArray.length; j++) {
+            boolean sorted = true;
+            for (int i = 1; i < returnArray.length; i++) {
+                if (returnArray[i] < returnArray[i - 1]) {
+                    int temp = returnArray[i];
+                    returnArray[i] = returnArray[i - 1];
+                    returnArray[i - 1] = temp;
+                    sorted = false;
+                }
+            }
+            if (sorted) {
+                break;
+            }
+        }
+        return returnArray;
     }
 
     /**
@@ -43,8 +60,30 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] selectionSort(final int[] array) {
-        return null;
+        int[] sortedArray = new int[array.length];
+        System.arraycopy(array, 0, sortedArray, 0, array.length);
+        int minPosition;
+        int min;
+
+        for (int i = 0; i < array.length - 1; i++) {
+            min = Integer.MAX_VALUE;
+            minPosition = -1;
+            for (int j = i; j < array.length; j++) {
+                if (sortedArray[j] < min) {
+                    min = sortedArray[j];
+                    minPosition = j;
+                }
+            }
+            if (minPosition >= 0) {
+                int temp = sortedArray[i];
+                sortedArray[i] = sortedArray[minPosition];
+                sortedArray[minPosition] = temp;
+            }
+        }
+        return sortedArray;
     }
+
+
 
     /**
      * Merge sort.
@@ -54,7 +93,20 @@ public class Sorting {
      */
     @SuppressWarnings("unused")
     private static int[] mergeSort(final int[] array) {
-        return null;
+        int[] returnArray;
+        int mid = array.length / 2;
+        if (array.length == 1) {
+            return array;
+        } else {
+            int[] array1 = new int[mid];
+            System.arraycopy(array, 0, array1, 0, mid);
+            int[] array2 = new int[array.length - mid];
+            System.arraycopy(array, mid, array2, 0, mid);
+            int[] sortedArray1 = mergeSort(array1);
+            int[] sortedArray2 = mergeSort(array2);
+            returnArray = merge(sortedArray1, sortedArray2);
+        }
+        return returnArray;
     }
 
     /**
